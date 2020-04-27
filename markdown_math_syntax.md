@@ -132,6 +132,7 @@ $$
 > $$\approx$$
 > $$\dfrac{\mathrm{d}x}{\mathrm{d}y}$$
 > $$\left\|\theta\right\|_2$$
+> $$\sim$$
 
 ## 7.dots
 |type|shape|

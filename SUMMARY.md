@@ -12,4 +12,8 @@
     * [LRCode](logistic_regression/lrcode.md)
 * [Deep Learing](deep_learning/deep_learning.md)
     * [Tips for Deep Learning](deep_learning/tips_for_deep_learning.md)
+* [Pytorch](pytorch/pytorch.md)
+    * [three kinds of data](pytorch/three_kinds_of_data.md)
+    * [real world data representation](pytorch/real_data_representaion.md)
+* [Convolutional Neural network](convolutional_neural_network/cnn.md)
 

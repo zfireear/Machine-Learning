@@ -97,6 +97,9 @@ $v^i$ is actually the weighted sum of all the previous gradient:
 - $v^1 = - \eta\nabla L(\theta^0)$
 - $v^2 = -\lambda \eta \nabla L(\theta^0) - \eta \nabla L(\theta^1)$
 
+## Momentum V.s. AdaGrad
+Momentum adds updates to the slope of our error function and speeds up SGD in turn. AdaGrad adapts updates to each individual parameter to perform larger or smaller updates depending on their importance
+
 ## Adam
 - $m_0 = 0$, it is previous movement in Momentum
 - $v_0 = 0$, it is $\sigma$ in the root mean square of the gradient calculated in RMSProp
@@ -163,10 +166,82 @@ $$w^{t+1} \leftarrow w^t - \eta \dfrac{\partial L^\prime(\theta)}{\partial w} = 
 
 $$\qquad = w^t - \eta\dfrac{\partial L(\theta)}{\partial w} - \eta \lambda sgn(w^t)w$$
 
-### L1 V.S. L2
+### L1 V.s. L2
 Although they also make the absolute value of the parameter smaller, they actually do slightly different things:
 - L1 makes the absolute value of the parameter smaller by subtracting a fixed value for every update
 - L2 makes the absolute value of the parameter smaller by multiplying by a fixed value less than 1 for every update.
 
+## Dropout
+- During training, each time before updating the parameters, we do sampling for each neuron (also including the input layer). Each neuron has a p% chance that it will be discarded (dropout). If it is lost, the weight connected to it will also be lost.
+- The parameters between different networks are shared.
+- Assuming that during training, the dropout rate is p%, all weights learned from the training data must be multiplied by (1-p%) to be used as the weight of the testing set.
 
+What Dropout really wants to do is to make your results on the training set worse, but the results on the testing set are better.Dropout is a optimization method for testing set but is used for training .
 
+If the type of network is very close to linear, the performance of dropout will be better, and the network of ReLU and Maxout is relatively close to linear, so we usually use the network with ReLU or Maxout in Dropout.
+
+### Maxout V.s. Dropout  
+Maxout is that the network structure corresponding to each data is different, and Dropout is that the network structure is different for each update (each minibatch corresponds to an update, and a minibatch contains many data)
+
+## Parameter Initialization
+What should be the scale of this initialization? If we choose large values for the weights, this can lead to exploding gradients. On the other hand, small values for weights can lead to vanishing gradients. There is some sweet spot that provides the optimum tradeoff between these two, but it cannot be known a priori and must be inferred through trial and error.
+
+In general, it is a good idea to avoid presupposing any form of a neural structure by randomizing weights according to a normal distribution.
+
+### Xavier Initialization
+Xavier initialization is a simple heuristic for assigning network weights. With each passing layer, we want the variance to remain the same. This helps us keep the signal from exploding to high values or vanishing to zero. In other words, we need to initialize the weights in such a way that the variance remains the same for both the input and the output.
+
+The weights are drawn from a distribution with zero mean and a specific variance. For a fully-connected layer with m inputs:
+$$W_{ij} \sim N\left(0,\frac{1}{m}\right)$$
+The value m is sometimes called the fan-in: the number of incoming neurons (input units in the weight tensor).
+
+### He Normal Initialization
+He normal initialization is essentially the same as Xavier initialization, except that the variance is multiplied by a factor of two.The weights are still random but differ in range depending on the size of the previous layer of neurons. This provides a controlled initialization hence the faster and more efficient gradient descent.
+
+For ReLU units, it is recommended:
+$$W_{ij} \sim N\left(0,\frac{2}{m}\right)$$
+
+## Bias Initialization
+The simplest and a common way of initializing biases is to set them to zero.
+
+One main concern with bias initialization is to avoid saturation at initialization within hidden units — this can be done, for example in ReLU, by initializing biases to 0.1 instead of zero.
+
+## Pre-Initialization
+ This is common for convolutional networks used for examining images, which is to be used on similar data to that which the network was trained on.
+
+## Feature Normalization
+manipulate the data itself in order to aid our model optimization
+1. min-max normalization  
+   rescaling the range of features to scale the range in [0, 1] or [−1, 1].
+   As this has a tendency to collapse outliers so they have a less profound effect on the distribution.
+   $$x^\prime = \dfrac{x-\min(x)}{\max(x)-\min(x)}$$
+
+2. Feature standardization
+   makes the values of each feature in the data have zero-mean and unit-variance,which ameliorate the distortion (uniforming the elongation of one feature compared to another feature)
+   $$x^\prime = \dfrac{x - \mu}{\sigma}$$
+   
+## Batch Normalization
+Batch normalization is an extension to the idea of feature standardization to other layers of the neural network.
+
+- To increase the stability of a neural network, batch normalization normalizes the output of a previous activation layer by subtracting the batch mean and dividing by the batch standard deviation.  
+ $\mu$ is the vector of mean activations across mini-batch, $\sigma$ is the vector of SD of each unit across mini-batch.
+$$H^\prime = \dfrac{H - \mu}{\sigma}$$
+$$\mu = \dfrac{1}{m}\sum_iH_i$$
+$$$$
+$$\sigma = \sqrt{\dfrac{1}{m}\sum_i(H - \mu)_i^2+\delta}$$
+
+Batch normalization allows each layer of a network to learn by itself more independently of other layers.
+
+However, after this shift/scale of activation outputs by some randomly initialized parameters, the weights in the next layer are no longer optimal. SGD ( Stochastic gradient descent) undoes this normalization if it’s a way for it to minimize the loss function.
+
+Consequently, batch normalization adds two trainable parameters to each layer, so the normalized output is multiplied by a “standard deviation” parameter (γ) and add a “mean” parameter (β). In other words, batch normalization lets SGD do the denormalization by changing only these two weights for each activation, instead of losing the stability of the network by changing all the weights. ($\gamma,\beta$ are learnable)
+$$\gamma H^\prime + \beta$$
+This procedure is known as the batch normalization transform.  
+During test time, the mean and standard deviations are replaced with running averages collected during training time,which ensures that the output deterministically depends on the input.   
+Batch normalization reduces overfitting because it has a slight regularization effect.Similar to dropout, it adds some noise to each hidden layer’s activations.   
+
+There are several advantages to using batch normalization:
+- Reduces internal covariant shift.
+- Reduces the dependence of gradients on the scale of the parameters or their initial values.
+- Regularizes the model and reduces the need for dropout, photometric distortions, local response normalization and other regularization techniques.
+- Allows use of saturating nonlinearities and higher learning rates.
