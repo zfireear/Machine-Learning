@@ -15,5 +15,7 @@
 * [Pytorch](pytorch/pytorch.md)
     * [three kinds of data](pytorch/three_kinds_of_data.md)
     * [real world data representation](pytorch/real_data_representaion.md)
+    * [The mechanics of learning](pytorch/walking_through_a_learning_algorithm_from_scratch.md)
+    * [Backpropagate all things](pytorch/autograd.md)
 * [Convolutional Neural network](convolutional_neural_network/cnn.md)
 
