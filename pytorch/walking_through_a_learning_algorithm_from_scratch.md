@@ -84,3 +84,27 @@ plt.plot(t_u.numpy(),t_p.detach().numpy())
 plt.plot(t_u.numpy(),t_c.numpy(),'o')
 ```
 
+## Demo of Stochastic Gradient Descend
+```python
+step_size = 0.01
+linear_module = nn.Linear(d,1)
+loss_func = nn.MSELoss()
+optim = torch.optim.SGD(linear_module.parameters(),lr=step_size)
+print("iter,\tloss,\tw")
+for i in range(200):
+    rand_idx = np.random.choice(n)
+    x = X[rand_idx]
+    y_hat = linear_module(x)
+    loss = loss_func(y_hat,y[rand_idx])
+    optim.zero_grad()
+    loss.backward()
+    optim.step()
+    
+    if i % 20 == 0:
+        print("{},\t{:.2f},\t{}"
+              .format(i,loss.item(),linear_module.weight
+                      .view(2).detach().numpy()))
+        
+print("\ntrue w:\t\t",true_w.view(2).numpy())
+print("estimated w:\t",linear_module.weight.view(2).detach().numpy())
+```

@@ -17,5 +17,12 @@
     * [real world data representation](pytorch/real_data_representaion.md)
     * [The mechanics of learning](pytorch/walking_through_a_learning_algorithm_from_scratch.md)
     * [Backpropagate all things](pytorch/autograd.md)
+    * [Training, validation, and overfitting](pytorch/training_validation_overfitting.md)
+    * [Neural Network](pytorch/neural_network.md)
+    * [NN Module](pytorch/nn_module.md)
+    * [Subclassing NN Module](pytorch/subclassing_nn_module.md)
+    * [Pre-trained Network](pytorch/pre-trained_network.md)
+    * [Problem Set of PyTorch](pytorch/problem_set_of_pytorch.md)
+* [PyTorch Recipes](pytorch_recipes/pytorch_recipes.md)
 * [Convolutional Neural network](convolutional_neural_network/cnn.md)
 

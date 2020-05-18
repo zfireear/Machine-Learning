@@ -48,6 +48,8 @@ for t in range(iter_time):
 ```
 
 ## 2.Stochastic Gradient Descent
+>  The term stochastic comes from the fact that the gradient is typically obtained by averaging over a random subset of all input samples, called a minibatch. The optimizer itself, however, doesn’t know whether the loss was evaluated on all the samples (vanilla) or a random subset thereof (stochastic), so the algorithm is the same in the two cases.
+
 Just pick an example $x^n$ ,Loss for only one example
 > $$L^n = ( \hat{y}^n - (b+\sum w_ix_i^n) )^2$$
 > $$\theta^i = \theta^{i-1}- \eta\nabla L^n(\theta^{i-1})$$

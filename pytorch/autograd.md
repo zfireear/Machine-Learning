@@ -21,6 +21,32 @@ Detach the new params tensor from the computation  graph  associatedwith its upd
 
 You can reenable tracking by calling `.requires_grad_()`,  an `in_place` operation (see the trailing _) that reactivates autograd for the  tensor. At that time, you can release the memory held by old versions of params and need to backpropagate through only your current weights.
 
+**NOTE** The usage of `.detach()` is more secure
+```python
+# Q: What is the value of  x  that minimizes  f ?
+x = torch.tensor([5.0],requires_grad=True)
+step_size = 0.25
+print("iter,\tx,\tf(x),\tf\'(x),\tf\'(x) pytorch")
+for i in range(15):
+    y = f(x)
+    y.backward()
+    
+    print("{},\t{:.3f},\t{:.3f},\t{:.3f},\t{:.3f}".format(
+            i,x.item(),f(x).item(),fp(x).item(),x.grad.item()))
+    # .data 和.detach只取出本体tensor数据，舍弃了grad，grad_fn等额外反向图计算过程需保存的额外信息。
+    # The .data and .detach operation only withdraw ontological data from tensor, and discard the extra information that needs to be saved in the calculation process of back propagation such as grad and grad_fn.
+    x.data = x.data - step_size*x.grad
+    # zero the grad
+    # the detach_() is for efficiency
+    x.grad.detach_()
+    x.grad.zero_()
+    #print(x.data) 
+    #.data取出本体tensor后仍与原数据共享内存，在使用in-place操作后，会修改原数据的值，
+    #而如果在反向传播过程中使用到原数据会导致计算错误，而使用.detach后，如果在反向传播过程中发现原数据被修改过会报错。更加安全
+    # The .data operation takes out the ontology tensor and still shares memory with the original data, which the value of the original data will be modified after using the in-place operation
+    # If the original data is used in the process of back propagation, it will cause calculation errors. After using .detach operation, if the original data had been modified in the process of back propagation, an error will be reported. It results in safer checking.
+```
+
 ## Demo of Pytorch's autograd
 ```python
 # Prepare the data
@@ -83,4 +109,29 @@ dir(optim)
  'Rprop',
  'SGD']
  ```
- Every optimizer constructor takes a list of parameters (aka PyTorch tensors, typically with `requires_grad` set to `True`) as the first input.
+Every optimizer constructor takes a list of parameters (aka PyTorch tensors, typically with `requires_grad` set to `True`) as the first input.  
+```python
+params = torch.tensor([1.0,0.0],requires_grad=True)
+learning_rate = 1e-2
+optimizer = optim.SGD([params],lr=learning_rate)
+```
+
+All parameters passed to the optimizer are retained inside the optimizer object so that the optimizer can update their values and access their `grad` attribute.
+
+Each optimizer exposes two methods: `zero_grad` and `step`. The former zeros the grad attribute of all the parameters passed to the optimizer upon construction. The latter updates the value of those parameters according to the optimization strategy implemented by the specific optimizer.
+```python
+t_p = model(t_u,*params)
+loss = loss_fn(t_p,t_c)
+optimizer.zero_grad()
+loss.backward()
+optimizer.step()
+```
+
+Optimizer `Adam` in which the learning rate is set adaptivel is a lot less sensitive to the scaling of the parameters.
+```python
+params = torch.tensor([1.0,0.0],requires_grad=True)
+learning_rate = 1e-1
+optimizer = optim.Adam([params],lr=learning_rate)
+```
+
+Neural networks allow you to remove your arbitrary assumptions about the shape of the function you should be approximating.
