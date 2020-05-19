@@ -18,6 +18,9 @@
 
    Now you can check to see if you can use it by `sudo nvidia-smi`. 
 
+3. NotImplementedError  
+You often enter this error when you inherit  superclass and implemente subclass.You make a mistake on indent of some function of subclass from superclass .
+
 
 
 

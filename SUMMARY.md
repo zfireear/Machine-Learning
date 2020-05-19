@@ -25,4 +25,6 @@
     * [Problem Set of PyTorch](pytorch/problem_set_of_pytorch.md)
 * [PyTorch Recipes](pytorch_recipes/pytorch_recipes.md)
 * [Convolutional Neural network](convolutional_neural_network/cnn.md)
+    * [CNN Network Structure](convolutional_neural_network/cnn_network_structure.md)
+    * [Common CNN](convolutional_neural_network/common_cnn.md)
 

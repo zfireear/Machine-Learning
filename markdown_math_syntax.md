@@ -133,6 +133,9 @@ $$
 > $$\dfrac{\mathrm{d}x}{\mathrm{d}y}$$
 > $$\left\|\theta\right\|_2$$
 > $$\sim$$
+> $$\lfloor x \rfloor $$
+> $$\lceil x \rceil$$
+
 
 ## 7.dots
 |type|shape|
