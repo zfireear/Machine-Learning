@@ -32,7 +32,5 @@ It is quite clear why removing a couple of layers in a ResNet architecture doesn
 It is apparent that the distribution of all possible path lengths follows a Binomial distribution.  
 The ResNet did not solve the vanishing gradients problem for very long paths, and that ResNet actually enables training very deep network by shortening its effective paths.
 
-
-
-
-
+## Inception Network
+Base idea: concatenate all the outputs, and let the network learn whatever parameters it wants to use, what the combinatins of these filter size are at once. Also can use 1×1 conv within it to reduce computational cost significantly.

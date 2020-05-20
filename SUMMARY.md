@@ -27,4 +27,8 @@
 * [Convolutional Neural network](convolutional_neural_network/cnn.md)
     * [CNN Network Structure](convolutional_neural_network/cnn_network_structure.md)
     * [Common CNN](convolutional_neural_network/common_cnn.md)
+    * [CNN Aplication](convolutional_neural_network/cnn_aplication.md)
+* [Graph Neural Network](graph_neural_network/graph_neural_network.md)
+    * [Spatial-based GNN](graph_neural_network/Spatial_based_gnn.md)
+    * [Spectral_based_gnn](graph_neural_network/Spectral_based_gnn.md)
 

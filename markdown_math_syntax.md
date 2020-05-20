@@ -135,7 +135,9 @@ $$
 > $$\sim$$
 > $$\lfloor x \rfloor $$
 > $$\lceil x \rceil$$
-
+> $$\overline{x}$$
+> $$\lbrace x \rbrace$$
+> $$\lbrack x \rbrack$$
 
 ## 7.dots
 |type|shape|
