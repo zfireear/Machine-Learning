@@ -31,4 +31,6 @@
 * [Graph Neural Network](graph_neural_network/graph_neural_network.md)
     * [Spatial-based GNN](graph_neural_network/Spatial_based_gnn.md)
     * [Spectral_based_gnn](graph_neural_network/Spectral_based_gnn.md)
+* [Recurrent Neural Network](recurrent_neural_network/recurrent_neural_network.md)
+* [Semi-supervised](semi_supervised/semi_supervised.md)
 

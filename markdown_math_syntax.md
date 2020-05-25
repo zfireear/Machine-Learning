@@ -138,6 +138,7 @@ $$
 > $$\overline{x}$$
 > $$\lbrace x \rbrace$$
 > $$\lbrack x \rbrack$$
+> $$\gg \\ \ll$$
 
 ## 7.dots
 |type|shape|
