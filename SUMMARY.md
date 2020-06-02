@@ -22,6 +22,7 @@
     * [NN Module](pytorch/nn_module.md)
     * [Subclassing NN Module](pytorch/subclassing_nn_module.md)
     * [Pre-trained Network](pytorch/pre-trained_network.md)
+    * [Image Classification](pytorch/image_classification.md)
     * [Problem Set of PyTorch](pytorch/problem_set_of_pytorch.md)
 * [PyTorch Recipes](pytorch_recipes/pytorch_recipes.md)
 * [Convolutional Neural network](convolutional_neural_network/cnn.md)
@@ -33,4 +34,7 @@
     * [Spectral_based_gnn](graph_neural_network/Spectral_based_gnn.md)
 * [Recurrent Neural Network](recurrent_neural_network/recurrent_neural_network.md)
 * [Semi-supervised](semi_supervised/semi_supervised.md)
+* [Word Embedding](word_embedding/word_embedding.md)
+* [Explainable Machine Learning](explainable_machine_learning/explainable_machine_learning.md)
+* [Attack ML Models](attack_ml_models/attack_ml_models.md)
 

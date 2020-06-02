@@ -46,6 +46,7 @@
 > $$\int_a^b f(x)dx$$
 > $\int_a^b f(x)dx$  
 >$$\int_a^b f(x)\,\mathrm{d}x$$
+>$$\int_a^b f(x)\,\mathrm{d}x\Bigg|_{x = x_0}$$
 
 求和函数表达式 **sum_{起点}^{终点}** 表达式，积分函数表达式 **int_下限^上限 被积函数d被积量**
 
@@ -113,7 +114,9 @@ $$
 {\Delta} & {\backslash Delta} & {\Xi} & {\backslash Xi} & {\Upsilon} & {\backslash Upsilon} & {\Omega} & {\backslash Omega} \\\\
 \hline
 {\Omega} & {\backslash Omega} & {\Pi} & {\backslash Pi} & {\Phi} & {\backslash Phi} & {\infty } & {\backslash Infty} \\\\
-\hline
+\hline 
+{\mathcal{N}} & {\backslash mathcal} & {} & {} & {} & {} & {} & {} \\\\
+\hline 
 \end{array}
 $$
 
