@@ -142,9 +142,23 @@ $$
 > $$\lbrace x \rbrace$$
 > $$\lbrack x \rbrack$$
 > $$\gg \\ \ll$$
+> $$\underleftrightarrow{close}$$
 
-## 7.dots
+## 7.Dots
 |type|shape|
 |--|--|
 |vdots|$\vdots$|
 |cdots|$\cdots$|
+
+## 8.Square grid
+$$\begin{array}{|c|c|c|c|}
+\hline
+ {} & {} & {} & {} \\
+\hline
+ {} & {} & {} & {} \\
+\hline
+ {} & {} & {} & {} \\
+\hline
+ {} & {} & {} & {} \\
+\hline 
+\end{array}$$
