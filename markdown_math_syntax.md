@@ -143,6 +143,7 @@ $$
 > $$\lbrack x \rbrack$$
 > $$\gg \\ \ll$$
 > $$\underleftrightarrow{close}$$
+> $$\overset{\lambda}{\longrightarrow}$$
 
 ## 7.Dots
 |type|shape|

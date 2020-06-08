@@ -1,8 +1,7 @@
 # CNN Network Structure
 
 ## Padding 
-一个`n*n`图像经由一个`f*f`的过滤器卷积，最后会得到一个`(n-f+1)(n-f+1)`的结果  
-An `n×n` image is convolued with a filter of `f×f`， resulting in a `(n-f+1)(n-f+1)` output.
+An `n×n×３` image is convolued with a filter of `f×f×３`， the numbers in the convolution kernel are multiplied with the corresponding samples, and then sum them up, resulting in a `(n-f+1)(n-f+1)×１` output. In practice, there are often several filters being used. So it will turn out to `(n-f+1)(n-f+1)×#filters`.
 
 **Shortcoming of Traditional Convolution**
 - shrink output
