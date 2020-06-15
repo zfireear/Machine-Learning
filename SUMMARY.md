@@ -30,9 +30,11 @@
     * [Common CNN](convolutional_neural_network/common_cnn.md)
     * [CNN Aplication](convolutional_neural_network/cnn_aplication.md)
 * [Graph Neural Network](graph_neural_network/graph_neural_network.md)
+    * [Introduce to Graph Neural Network](graph_neural_network/introduce_to_graph_neural_network.md)
     * [Spatial-based GNN](graph_neural_network/Spatial_based_gnn.md)
     * [Spectral_based_gnn](graph_neural_network/Spectral_based_gnn.md)
 * [Recurrent Neural Network](recurrent_neural_network/recurrent_neural_network.md)
+    * [Recursive Structure](recurrent_neural_network/recursive_structure.md)
 * [Semi-supervised](semi_supervised/semi_supervised.md)
 * [Word Embedding](word_embedding/word_embedding.md)
 * [Explainable Machine Learning](explainable_machine_learning/explainable_machine_learning.md)
@@ -41,4 +43,6 @@
 * [Network Compression](network_compression/network_compression.md)
     * [Knowledge Distillation](network_compression/knowledge_distillation.md)
     * [Network Pruning](network_compression/network_pruning.md)
+* [Transformer](transformer/transformer.md)
+* [Conditional Generation by RNN & Attention](conditional_generation_by_RNN_&_Attention/conditional_generation_by_RNN_&_Attention.md)
 

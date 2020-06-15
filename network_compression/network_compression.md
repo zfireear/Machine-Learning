@@ -6,7 +6,7 @@ Resource-limited Devices : limited memory space,limited computing power, etc.
 - Network Pruning  
   Let the small model learn better by observing the behavior of the large model while learning the task. (let small models extract knowledge of large models)
 - Knowledge Distillation  
-  Prune the large model that has been learned to make the overall model smaller
+  Prune the large model that has been learned to make the overall model smaller. It is just to use the logits predicted by the big model as the standard for the small model to train.
 - Parameter Quantization  
   Use a better way to represent or access the parameters in the model, thereby reducing the amount of calculation/consumption capacity.
 - Architecture Design  
@@ -40,6 +40,9 @@ Base Idea : Netwoks are typically over-parameterized(there is significant redund
 - Neuron pruning  
   The pruning network architecture is regular  
   Easy to implement, easy to speed up
+
+### Pruning weight off v.s. Pruning neuron off
+The difference between weight and neuron pruning is that pruning off a neuron is equivalent to cutting off the entire column of a matrix. But as a result, the speed will be faster. Because the overall matrix becomes smaller after neuron pruning. But the weight pruning remains the same size, with many holes.
 
 ## Knowledge Distillation
 We firstly train a large/Teacher network ,and then train a small/Student network to mimic large network. For example, train a large network to recognize image. We got 70% for "1", 20% for "7", 10% for "9". Together train a small networn with same training data to produce same output.

@@ -53,6 +53,7 @@ $$w = 0.01 \rightarrow y^n \approx 0$$
 
 More often the activation is sigmoid function. RMSProp is the often optimizer.
 
+**NOTE** : At train time, we feed the correct output $y^{(t)}$ drawn from the train set as input to $h^{(t+1)}$. At test time, the true output is generally not known. In this case, we approximate the correct output $y^{(t)}$ with the model's output $o^{(t)}$, and feed the output back into the model.
 
 
 ## Long Short-term Memory

@@ -1,5 +1,10 @@
 # Knowledge Distillation
 
+## Why does it work?
+- For example, when the data is not very clean, it is a noise for the general model, which will only interfere with learning. It is better to learn logits predicted by other big models.
+- There may be a relationship between labels, which can guide small models to learn. For example, the number 8 may be related to 6,9,0.
+- Weaken the target which has been learned well. Lest the gradient interfere with other tasks that have not yet learned well.
+
 ## Main Question : Distill what?
 - Logits(output value)
   - Match logits directly
@@ -41,6 +46,9 @@ $\overset{sum}{\longrightarrow}\quad$ total loss
 
 Through soft target, small models can learn the relationship between classes.
 
+**Loss Function**  
+$$Loss = \alpha T^2 \times KL(\dfrac{Teacher's Logits}{T} || \dfrac{Student's Logits}{T}) + (1-\alpha)(origin\quad Loss)$$
+
 ### Distill Logits - Deep Mutual Learning
 Train two networks at the same time and learn each other's logits.
 
@@ -74,6 +82,9 @@ Let the student network study the teacher's attention map
 - What target function?
   - L2 distance between teacher's attention map and student's attention map
 
+### Group Convolution Layer--Another Attention 
+GC (Group Convolution Layer) is to group feature maps. Let them pass convolution layer and then concat again. It is a compromise between the general convolution and depthwise Convolution. So, when group convolution's group feautures number is equal to input number, it will be depthwise convolution (because each Channel is independent), and Group=1 will be general Convolution (because there is no Group)
+
 ## Relationship Distillation
 Individual KD  
 - Distilling knowledge based on each sample. 
@@ -90,3 +101,23 @@ Relational KD
 ### Distill relation between feature
 - Similarity-preserving KD  
   Extract relational information on feature as cosine similarity table. Let student network imitate to learn relationship
+
+# Math 
+## Kullback–Leibler divergence
+The Kullback–Leibler divergence (also called relative entropy) is a measure of how one probability distribution is different from a second, reference probability distribution.  
+The smaller the KL divergence, the better the match between the true distribution and the approximate distribution.
+A Kullback–Leibler divergence of 0 indicates that the two distributions in question are identical.
+For discrete probability distributions 
+$P$ and $Q$ defined on the same probability space, ${\mathcal {X}}$, the Kullback–Leibler divergence from $Q$ to $P$ is defined to be
+$$D_{KL}(P||Q) = \sum_{x\in {\mathcal {X}}}P(x)\log \left( \dfrac{P(x)}{Q(x)} \right)$$
+which is equivalent to 
+$$D_{KL}(P||Q) = - \sum_{x\in {\mathcal {X}}}P(x)\log \left( \dfrac{Q(x)}{P(x)} \right)$$
+For distributions $P$ and $Q$ of a continuous random variable, the Kullback–Leibler divergence is defined to be the integral:
+$$D_{KL}(P||Q) = \int_{-\infin}^{\infin}p(x)\log \left( \dfrac{q(x)}{p(x)} \right)dx$$
+where $p$ and $q$ denote the probability densities of $P$ and $Q$.
+
+More generally, if $P$ and $Q$ are probability measures over a set ${\mathcal {X}}$, and $P$ is absolutely continuous with respect to $Q$, then the Kullback–Leibler divergence from $Q$ to $P$ is defined as
+$$D_{KL}(P||Q) = \int_{{\mathcal {X}}}\log \left( \dfrac{dP}{dQ} \right)dP$$
+where $\frac{dP}{dQ}$ is the Radon–Nikodym derivative of $P$ with respect to $Q$,and provided the expression on the right-hand side exists. Equivalently (by the chain rule), this can be written as
+$$D_{KL}(P||Q) = \int_{{\mathcal {X}}}\log \left( \dfrac{dP}{dQ} \right)\dfrac{dP}{dQ}dQ$$
+Various conventions exist for referring to ${\displaystyle D_{\text{KL}}(P\parallel Q)}$ in words. Often it is referred to as the divergence between $P$ and $Q$, but this fails to convey the fundamental asymmetry in the relation. Sometimes, as in this article, it may be found described as the divergence of P from Q or as the divergence from $Q$ to $P$. This reflects the asymmetry in Bayesian inference, which starts from a prior $Q$ and updates to the posterior $P$. Another common way to refer to ${\displaystyle D_{\text{KL}}(P\parallel Q)}$ is as the relative entropy of $P$ with respect to $Q$.
