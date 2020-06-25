@@ -44,5 +44,6 @@
     * [Knowledge Distillation](network_compression/knowledge_distillation.md)
     * [Network Pruning](network_compression/network_pruning.md)
 * [Transformer](transformer/transformer.md)
+    * [Variant of Transformers](transformer/variant_of_transformers.md)
 * [Conditional Generation by RNN & Attention](conditional_generation_by_RNN_&_Attention/conditional_generation_by_RNN_&_Attention.md)
 
