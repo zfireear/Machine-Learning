@@ -46,4 +46,6 @@
 * [Transformer](transformer/transformer.md)
     * [Variant of Transformers](transformer/variant_of_transformers.md)
 * [Conditional Generation by RNN & Attention](conditional_generation_by_RNN_&_Attention/conditional_generation_by_RNN_&_Attention.md)
+* [Unsupervised Learning](unsupervised_learning/unsupervised_learning.md)
+    * [Dimension Reduction](unsupervised_learning/dimension_reduction.md)
 
