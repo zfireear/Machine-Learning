@@ -1,4 +1,5 @@
-# Gradient Descent 
+# More about Gradient Descent
+
 Suppose that $\theta$ has two variables {$\theta_{1}$,$\theta_{2}$} ,randomly start at $\theta^{0}$ 
 > $$\theta^{0} = \begin{bmatrix} 
 \theta_{1}^{0}\\\\ \theta_{2}^{0} 
