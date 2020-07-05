@@ -134,3 +134,29 @@ we know that PCA : $z = Wx$
 $$\begin{bmatrix} z_1\\z_2 \\ \vdots\\z_k \end{bmatrix} = \begin{bmatrix} (w^1)^T\\(w^2)^T \\ \vdots \\(w_k)^k\end{bmatrix}x$$
 
 Actually, $\lbrace w^1,w^2,\cdots,w^k\rbrace$ (from PCA) is the component $\lbrace u^1,u^2,\cdots,u^k\rbrace$
+
+$$\hat{x} = \sum_{k=1}^Kc_kw^k \longleftrightarrow x - \overline{x}$$
+
+To minimizer reconstruction error : 
+$$C_k = (x - \overline{x})\cdot w^k$$
+Because these $\lbrace w^1,w^2,\cdots,w^k\rbrace$ vectors are orthonormal.
+
+## Autoencoder
+**PCA looks like a neural network with one hidden layer(linear activatioin function)**, but the result of PCA is better the neural network with one hidden layer. But it can be deep, which is called Deep Autoencoder.
+
+## Weakness of PCA
+1. As PCA apply on unsupervised situation, PCA is likely to merge different classes onto a single dimension, which different calsses are mixed and hard to distinguish.  
+   To solve this problem, you need to use lable data. LDA(Linear discriminant analysis) is a supervised method, which is a dimensionality reduction approach to consider label data.
+2. PCA is linear transformation. So it can't deal with non-linear dimension reduction.
+
+## FAQ  
+Question : How many principal components?  
+Solution : To calculate variance of each principal components based on its eigenvalue, consider the big eigenvectors and ingore the small eigenvectors.
+
+Question : What happens to PCA?  
+Answer : It is worth noting that the components may not be parts of digits(suppose it's a MNIST task) as weight can be any real number. PCA involves adding up and subtrcting some components.  
+Another technology is NMF(Non-negative matrix factorization). PCA can be regard as a SVD(Singular Value Decomposition) opration on data matrix, while the decomposed value can be positive or negative. However, when it comes to NMF, it will force all components and weight to be non-negative. So NMF only have additive combination opration and is more like parts of digits.
+
+
+
+

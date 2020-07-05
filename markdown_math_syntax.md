@@ -166,3 +166,8 @@ $$\begin{array}{|c|c|c|c|}
 
 9.数学运算符号
 >> $$\odot$$
+
+## FAQ
+1. It is usually a continuous {{ or }} error, it should become one, it may be a grammatical problem.
+> error: error while generating page...
+> expected variable end

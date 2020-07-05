@@ -116,8 +116,8 @@ For distributions $P$ and $Q$ of a continuous random variable, the Kullback–Le
 $$D_{KL}(P||Q) = \int_{-\infin}^{\infin}p(x)\log \left( \dfrac{q(x)}{p(x)} \right)dx$$
 where $p$ and $q$ denote the probability densities of $P$ and $Q$.
 
-More generally, if $P$ and $Q$ are probability measures over a set ${\mathcal {X}}$, and $P$ is absolutely continuous with respect to $Q$, then the Kullback–Leibler divergence from $Q$ to $P$ is defined as
-$$D_{KL}(P||Q) = \int_{{\mathcal {X}}}\log \left( \dfrac{dP}{dQ} \right)dP$$
-where $\frac{dP}{dQ}$ is the Radon–Nikodym derivative of $P$ with respect to $Q$,and provided the expression on the right-hand side exists. Equivalently (by the chain rule), this can be written as
-$$D_{KL}(P||Q) = \int_{{\mathcal {X}}}\log \left( \dfrac{dP}{dQ} \right)\dfrac{dP}{dQ}dQ$$
+More generally, if $P$ and $Q$ are probability measures over a set $\mathcal {X}$, and $P$ is absolutely continuous with respect to $Q$, then the Kullback–Leibler divergence from $Q$ to $P$ is defined as
+$$D_{KL}(P||Q) = \int_{\mathcal {X}}\log \left( \dfrac{dP}{dQ} \right)dP$$
+where $\frac{dP}{dQ}$ is the Radon–Nikodym derivative of $P$ with respect to $Q$, and provided the expression on the right-hand side exists. Equivalently (by the chain rule), this can be written as
+$$D_{KL}(P||Q) = \int_{\mathcal {X}}\log \left( \dfrac{dP}{dQ} \right)\dfrac{dP}{dQ}dQ$$
 Various conventions exist for referring to ${\displaystyle D_{\text{KL}}(P\parallel Q)}$ in words. Often it is referred to as the divergence between $P$ and $Q$, but this fails to convey the fundamental asymmetry in the relation. Sometimes, as in this article, it may be found described as the divergence of P from Q or as the divergence from $Q$ to $P$. This reflects the asymmetry in Bayesian inference, which starts from a prior $Q$ and updates to the posterior $P$. Another common way to refer to ${\displaystyle D_{\text{KL}}(P\parallel Q)}$ is as the relative entropy of $P$ with respect to $Q$.

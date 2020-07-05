@@ -1,5 +1,6 @@
 # Summary
 
+* [Introduction](README.md)
 * [Markdown Math Syntax](markdown_math_syntax.md)
 * [Gradient Descent](gradient_descent/gradient_descent.md)
     * [More about Gradient Descent](gradient_descent/more_about_gradient_descent.md)
@@ -21,7 +22,6 @@
     * [Pre-trained Network](pytorch/pre-trained_network.md)
     * [Image Classification](pytorch/image_classification.md)
     * [Problem Set of PyTorch](pytorch/problem_set_of_pytorch.md)
-* [PyTorch Recipes](pytorch_recipes/pytorch_recipes.md)
 * [Convolutional Neural network](convolutional_neural_network/cnn.md)
     * [CNN Network Structure](convolutional_neural_network/cnn_network_structure.md)
     * [Common CNN](convolutional_neural_network/common_cnn.md)
@@ -45,4 +45,7 @@
 * [Conditional Generation by RNN & Attention](conditional_generation_by_RNN_&_Attention/conditional_generation_by_RNN_&_Attention.md)
 * [Unsupervised Learning](unsupervised_learning/unsupervised_learning.md)
     * [Dimension Reduction](unsupervised_learning/dimension_reduction.md)
+    * [Neighbor Embedding](unsupervised_learning/neighbor_embedding.md)
+* [Natual Language Processing](nlp/natural_language_processing.md)
+    * [Introduction](nlp/introduction.md)
 
