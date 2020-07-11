@@ -65,3 +65,9 @@ Distribution q:  $q(x=1) = f(x^n)$, $q(x=0) = 1 - f(x^n)$
 Cross Entropy between two Bernoulli Distribution.  
 
 $$H(p,q) = -\sum_xp(x)ln(q(x)) = -\sum_x[\hat{y}^nlnf(x^n)+(1 - \hat{y}^n)ln(1 - f(x^n))]$$ 
+
+
+## Regression v.s. Classification
+
+The regression problem is different from the classification problem. The classification problem is to determine what kind of object is in a fixed n categories. The regression problem is the prediction of specific values. For example, house price prediction and sales volume prediction are regression problems. These problems that need to predict are not a pre-defined category but an arbitrary real number. The neural network to solve the regression problem generally has only one output node, and the output value of this node is the predicted value. The most commonly used loss function for regression problems is the mean square error MSE.
+

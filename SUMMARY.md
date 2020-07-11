@@ -46,6 +46,8 @@
 * [Unsupervised Learning](unsupervised_learning/unsupervised_learning.md)
     * [Dimension Reduction](unsupervised_learning/dimension_reduction.md)
     * [Neighbor Embedding](unsupervised_learning/neighbor_embedding.md)
+    * [Deep Auto-encoder](unsupervised_learning/deep_auto_encoder.md)
 * [Natual Language Processing](nlp/natural_language_processing.md)
     * [Introduction](nlp/introduction.md)
+* [Anomaly Detection](anomaly_detection/anomaly_detection.md)
 

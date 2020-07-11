@@ -141,7 +141,7 @@ To minimizer reconstruction error :
 $$C_k = (x - \overline{x})\cdot w^k$$
 Because these $\lbrace w^1,w^2,\cdots,w^k\rbrace$ vectors are orthonormal.
 
-## Autoencoder
+## Auto-encoder
 **PCA looks like a neural network with one hidden layer(linear activatioin function)**, but the result of PCA is better the neural network with one hidden layer. But it can be deep, which is called Deep Autoencoder.
 
 ## Weakness of PCA
@@ -154,7 +154,7 @@ Question : How many principal components?
 Solution : To calculate variance of each principal components based on its eigenvalue, consider the big eigenvectors and ingore the small eigenvectors.
 
 Question : What happens to PCA?  
-Answer : It is worth noting that the components may not be parts of digits(suppose it's a MNIST task) as weight can be any real number. PCA involves adding up and subtrcting some components.  
+Answer : It is worth noting that the components may not be parts of digits(suppose it's a MNIST task) as weight can be any real number. PCA involves adding up and subtrcting some components.    
 Another technology is NMF(Non-negative matrix factorization). PCA can be regard as a SVD(Singular Value Decomposition) opration on data matrix, while the decomposed value can be positive or negative. However, when it comes to NMF, it will force all components and weight to be non-negative. So NMF only have additive combination opration and is more like parts of digits.
 
 

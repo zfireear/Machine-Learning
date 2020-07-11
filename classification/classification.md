@@ -28,7 +28,7 @@ Given $x \in R^m$ ,X obeys Multivariate Normal Distribution ,we have mean $\mu$ 
 > $$f_{\mu,\Sigma}(x) = \frac{1}{(2\pi)^\frac{m}{2} }\frac{1}{|\Sigma|^{\frac{1}{2}}}exp \left( -\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu) \right)$$
 
 ## Probabilistic Generative Model
-We have two kinds of classes ,$C_1$ : Class 1 , $C_2$ : Class 2 and samle x 
+We have two kinds of classes ,$C_1$ : Class 1 , $C_2$ : Class 2 and sample x 
 > **Posterior Probability**
 > $$P(x) = P(x|C_1)P(C_1)+P(x|C_2)P(C_2)$$
 > $$P(C_1|x) = \frac{P(x|C_1)P(C_1)}{P(x|C_1)P(C_1)+P(x|C_2)P(C_2)} $$
