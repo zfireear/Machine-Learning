@@ -21,6 +21,12 @@ $w^*,b^* = \underset{w,b}{argmax}L(w,b) \Rightarrow w^*,b^* = \underset{w,b}{arg
 we hope $C(f(x^n),\hat{y}^n)$ be as small as possible in order to make them has more similar distribution to attain better result
 $$C(f(x^n),\hat{y}^n) = - [\hat{y}^nlnf(x^n)+(1-\hat{y}^n)ln(1-f(x^n)]$$
 
+**Label Smoothing**
+$$H(y,p) = \sum_{k=1}^K-y_k\log (p_k)$$
+$$y_k^{LS} = y_k(1 - \alpha) + \alpha / K $$
+
+Where $K$ is the number of categories, $\alpha$ is the hyperparameter introduced by label smoothing
+
 **New Goal**  
 We hope minimize cross entropy of $C(f(x^n),\hat{y}^n)$  
 $$\underset{w,b}{argmix}L(w,b) = \underset{w,b}{argmix} C(f(x^n),\hat{y}^n) \\ 

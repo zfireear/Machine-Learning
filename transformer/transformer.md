@@ -6,6 +6,8 @@ Transformer, the model extends attention to accelerate training, and the biggest
 
 Transformer is proposed in "[Attention is All You Need](https://arxiv.org/abs/1706.03762)", where TF application is a sub-module of [Tensor2Tensor](https://github.com/tensorflow/tensor2tensor). Harvard's NLP team specially produced the corresponding PyTorch's [Guide Notes](http://nlp.seas.harvard.edu/2018/04/03/attention.html).
 
+Check the 
+[transformer structure image](https://mmbiz.qpic.cn/mmbiz_png/KmXPKA19gW9icbicicqO5VlBLqWvjSQuDrbDsyoBUIGjbxocOs31HbHpPQhwOl0hOiaVrkKQHUjuUI3Fe7mNxGOhvg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
 
 ## A High_Level Look
 We first treat the entire model as a black box. For example, in machine translation, a sentence in one language is received as input, and then it is translated into other languages ​​for output. ![image-20200226184149942](https://cdn.jsdelivr.net/gh/chenhaishun/test_pic@master/typora20200226184150-335044.png)
@@ -52,7 +54,7 @@ As mentioned earlier, the encoder receives the input of the vector list and feed
 
 The word vectors at each position in the figure above are fed into the self-attention module, followed by the forward network (the exact same network structure for each vector).
 
-### *Self-Attention at a High Level*
+## Self-Attention at a High Level
 
 Take the following sentence as an example, as the input sentence "The animal didn’t cross the street because it was too tired" that we want to translate. What does "it" mean in the sentence? Does "it" mean "street" or "animal"? Very simple question for humans, but not simple for algorithms
 
@@ -66,7 +68,23 @@ Transformer uses Self-attention to encode the "understanding" of related words i
 
 As we use #5 encoder to encode The word 'it', part of the Attention will focus on The word 'The Animal' and incorporate some of its representation into The encoding of the word 'it'
 
-#### *Self-Attention in Detail*
+### Attentional mechanisms
+In the original paper, Google showed a general definition of attention mechanism, that is, it is a coding sequence scheme like RNN or CNN. An attention function can be described as mapping query and a set of key value pairs to output, where query, key, value and output are vectors. The output can be calculated by the weighted sum of the values, and the weight assigned to each value can be calculated by query and the compatibility function of the corresponding key.
+
+In translation tasks,Query can be regarded as the original word vector sequence, while Key and Value can be regarded as the target word vector sequence. The general attention mechanism can be interpreted as calculating the similarity between Query and Key, and using this similarity to determine the attention relationship between Query and Value. In order wors, the operation between Query and Key is equivalent to calculating the internal similarity of the input sequence, and paying attention to the internal connection of the sequence itself (Value) based on this similarity or weight. This internal connection may be that the subject notices the information of the predicate and object or other structures hidden in the sentence.
+
+**Scaled Dot Product Attention**  
+The input is composed of Query and Key vector whose dimensions are $d_k$, and Value vector whose dimension is $d_v$. We will first calculate the dot product of Query and all Keys, and divide each by `squre_root(d_k)` to prevent the product result from being too large, and then feed it to the Softmax function to obtain the weight corresponding to Value. With these weights, we can configure the Value vector to get the final output.
+
+$$Attention(Q,K,V) = softmax(\frac{QK^T}{\sqrt{d_k}})V$$
+
+> **More detials about Scaled Dot Product Attention**  
+> In the above formula, the dot product of Q and K will be divided by squre_root($d_k$) to achieve scaling. The author of the original paper found that when the dimension $d_k$ of each Query is relatively small, the performance of dotted attention and additive attention is similar, but as $d_k$ increases, the performance of additive attention will exceed the dotted attention mechanism. However, dot multiplication attention has a powerful property, that is, it can use the parallel operation of matrix multiplication to greatly speed up training.  
+> The author of the original paper thought that the reason of the poor effect of dot product attention was that when $d_k$ is relatively large, the product result will be very large, so it will cause Softmax to quickly saturate and only provide a very small gradient to update the parameters. So they adopted the square root of $d_k$ to reduce the dot product result and prevent the Softmax function from saturating.  
+> In order to prove why the magnitude of the dot product becomes very large, we assume that the vector $Q$ and $K$ are both independent random variables with mean 0 and variance 1, and their dot product $Q⋅K=\sum_iq_i \cdot k_i$ has 0 mean and the variance $d_k$. To counteract this effect, we can normalize the dot product result by dividing by squre_root($d_k$).
+
+
+## Self-Attention in Detail
 Let's first look at how to calculate the self-attention vector, and then look at how to calculate it in a matrix.
 
 **First step**, according to the input vector of the encoder (in this example, each word Embedding Vector), generate three vectors, for example, for each word vector, generate Query-vector, Key-vector , Value-vector. The generation method is to multiply the three matrices $W^Q, W^K, W^V$, these three matrices need to be learned during the training process. Note: Not every word vector has 3 matrices, but all inputs share 3 conversion matrices;
@@ -108,7 +126,7 @@ $$z^1 = \sum_i\hat{a}_{1,i}v^i$$
 
 The above is the calculation process of self-attention, and the generated vectors flow into the forward network. In practical applications, the above calculations are performed in the form of a matrix which speeds up. Below we look at the matrix calculation at the word level.
 
-#### *Matrix Calculation of Self-Attention*
+### Matrix Calculation of Self-Attention
 
 **First step**, calculate **Query/Key/Value** matrix, and merge **all input embedding vector** into input matrix X (each row of input matrix X represents a word vector of input sentence), And multiply it by our weight matrix after training**$W^Q,W^K,W^V$. (In the figure below, we can see the input embedding vector size X [512 dimensions, represented by four small squares], and the output vector Q/K/V [64 dimensions, represented by three small squares])
 
@@ -126,7 +144,25 @@ $$A = K^T\times Q$$
 $$\hat{A} = \operatorname{softmax}(A)$$
 $$Z = V \times \hat{A}$$
 
-## The Beast With Many Heads
+## Multi-head Attention Mechanism
+The following figure shows the Multi-head Attention structure used in Transformer, which is actually multiple dot product attentions that are processed in parallel and finally stitched together. Generally speaking, we can perform h different linear transformations on the three input matrices $Q, V, K$, and then put them into h dot product attention functions and concatenate all the output results.
+
+[Multihead Attention](https://mmbiz.qpic.cn/mmbiz_png/KmXPKA19gW9icbicicqO5VlBLqWvjSQuDrbHo1OE3fZZkPY8CiaCORuia4BZEgA4Luxx0cXovNOWJsV43pM5FNN2nvw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1)
+
+Multi-head Attention allows the model to jointly pay attention to different representation subspace information at different positions. We can understand it as performing dot product attention multiple times without sharing parameters. The expression of Multi-head Attention is as follows:
+
+$$MultiHead(Q,K,V) = Concat(Head_1,\cdots,Head_h)W$$
+$$Head_i = Attention(QW_i^Q,KW_i^K,VW_i^V)$$
+
+Where $W$ is the weight matrix corresponding to the linear transformation, and Attention() is the dot product attention function mentioned above.
+
+> In the original paper, the researcher used $h=8$ parallel dot product attention layers to complete Multi-head Attention. For each attention layer, the dimension used in the original paper is $d_k=d_v=\dfrac{d_{model}}{h}=64$. Since the dimensionality of each parallel attention layer is reduced, the total computational cost is very similar to the cost of a single dot multiplication attention in the full dimension.
+
+Transformer uses Multi-head Attention in three different ways. First of all, in the encoder to decoder level, the Query comes from the output of the previous decoder, and the memorized Key and Value come from the output of the encoder. This allows every position in the decoder to pay attention to all positions in the input sequence, so it actually mimics the typical encoder-decoder attention mechanism in the sequence-to-sequence model.
+
+Secondly, the encoder layer contains the self-attention layer, and all Value, Key, and Query in this layer are the same input matrix, which is the output of the previous layer of the encoder. Finally, the self-attention layer in the decoder allows every position in the decoder to notice all legal positions including the current position. This can be achieved by the Mask function, thereby preventing left-direction information flow to maintain autoregressive properties.
+
+## Multi-head Attention in Detail
 By adding a mechanism called multi-headed Attention, this paper further improves self-attention, which can improve the performance of Attention in two ways: 
 
 1. Multi-headed expands the model’s ability to focus on different positions in the sentence. In the above example, $z_1$ contains very little information about other words, and is only determined by the actual word. In other cases, such as the translation of "The animal didn’t cross the street because it was too tired", we want to know what the word "it" refers to.
@@ -176,13 +212,25 @@ In the figure below, each line corresponds to the position code of a vector. The
 
 ![image-20200226231556397](https://cdn.jsdelivr.net/gh/chenhaishun/test_pic@master/typora20200226231556-650814.png)
 
-There is not only one method for position coding. Note that the encoding method must be able to handle sequences of unknown length
+There is not only one method for position coding. Note that the encoding method must be able to handle sequences of unknown length.
+
+In the original paper, researchers use sine and cosine functions of different frequencies :
+
+$$PE_{(pos,2i)} = sin(pos / 10000^{2i/d_{\text{model}}})$$                                     
+$$PE_{(pos,2i+1)} = cos(pos / 10000^{2i/d_{\text{model}}})$$
+
+Where `pos` is the position of the word, and `i` is the i-th element of the position encoding vector. Given the position `pos` of the word, we can map the word to a position vector of $d_{model}$ dimension, and the i-th element of the vector is calculated by the above two formulas. In other words, each dimension of the position code corresponds to a sine curve, and the wavelength constitutes a geometric sequence from $2π$ to $10000⋅2π$.
+
+The position vector of the absolute position is constructed above, but the relative position of the word is also very important. This is the subtlety of the trigonometric function used by Google researchers to represent the position. The sine and cosine functions allow the model to learn the relative position based on two transformations:
+
+$$sin(α+β)=sinα cosβ+cosα sinβ $$
+$$cos(α+β)=cosα cosβ−sinα sinβ $$
+
+For a fixed offset $k$ between words, the position vector $PE(pos+k)$ can be represented by the combination of $PE(pos)$ and $PE(k)$, which also represents the relative position between languages.
 
 ## The Residuals Connection
 
 One detail worth noting in the encoder architecture is that in each sub-layer (FFNN), there are residual joins, and these are closely followed by [layer-normalization](https://arxiv.org/abs/1607.06450)
-
-$$FFN(x) = \max(0, xW_1 + b_1 )W_2 + b_2$$
 
 ![image-20200226231609916](https://cdn.jsdelivr.net/gh/chenhaishun/test_pic@master/typora20200226231746-929475.png)
 
@@ -190,10 +238,35 @@ If we visualize vector and layer-norm operations, it will look like this:
 
 ![image-20200226231730087](https://cdn.jsdelivr.net/gh/chenhaishun/test_pic@master/typora20200226231730-99810.png)
 
+## Feed-forward network by Position
+
+In order to pay attention to the sub-layers, each encoder and decoder module finally contains a fully connected feedforward network, which is applied independently and identically to each location. This feedforward network contains two linear transformations and a nonlinear activation function, and we can add a Dropout method between the two layers of the network during the training process:
+
+$$FFN(x) = \max(0, xW_1 + b_1 )W_2 + b_2$$
+
+If we combine these two fully connected networks with residual connection and layer normalization, then it is the last necessary sub-layer for each encoder and decoder module. We can express this sub-layer as : 
+
+$$LayerNorm(x + max(0,xW_1+b_1)W_2+b_2)$$
+
+Although the linear transformation is the same in all different positions, it uses different parameters in different layers. This transformation can actually be described as two convolutions with a kernel size of 1.
+
+
+
 ## Batch Norm v.s. Layer Norm
-- Batch Norm : same dimension at different channels
-- Layer Norm : different dimension at same channels of a layer
-$$y = \gamma \left( \dfrac{x - \mu(x)}{\sigma(x)}\right)+ \beta$$
+- Batch Norm : same dimension at different channels  
+  Batch normalization is to consider the input data of a neuron in mini-batch, calculate the average value and variance, and then use this data to normalize the input of each training sample.
+
+- Layer Norm : different dimension at same channels of a layer  
+  The input data of the same layer are considered, and the mean value and variance are calculated to normalize the input data of each layer.  
+  The formula for calculating the layer normalized statistics for all hidden cells in the same layer is shown below :
+  $$h^t = f\lbrack \frac{g}{\sigma^t} \odot (a^t -\mu^t) + b\rbrack$$
+  $$\mu^t = \dfrac{1}{H}\sum_{i=1}^Ha_i^t$$
+  $$\sigma^t = \sqrt{\dfrac{1}{H}\sum_{i=1}^H(a_i^t - \mu^t)^2}$$
+
+  $h^t$ represents the output of hidden layer t, $a_i^t$ represents the i-th input of the hidden layer t, $g$ is the gain parameter that scales the normalized activation before the nonlinear activation function. $\beta$ is bias.
+
+  Layer normalization can greatly reduce the covariance deviation problem by correcting the mean and variance of the activation values in each layer.
+
 Batch Norm is applied on batch and normalizes on NHW, which is more often used on CV task. As different channels have different important features, different channels perfom different normalization. Same batches in the same channel do the same normalization. However, Layer Norm is applied on channal and normalizes on CHW, which more frequently used on NLP task. It can be regarding as sequence length. So layer norm normalizes on the words among in a sequence of sentence, while batch norm normalized on same locatoin amone a channel. More importantly, the length of sequence can vary and channel can't be consistent, so Layer norm can apply it to sentence by sentence.
  
 The sub-layer of the decoder is similar to this structure. Assume that our model is a Transformer composed of 2 stacked encoders and decoders, as shown in the following figure:

@@ -12,7 +12,7 @@ The validation set is used to provide an independent evaluation of the accuracy 
 
 ## Overfitting
 Make sure that the model that’s capable of fitting the training data is as regular as possible between the data points. You have several ways to achieve this goal:
-- Add so-called *penalization terms* to the loss function to make it cheaper for the model to behave more smoothly and change more slowly(up to a point).
+- Add so-called *penalization terms* to the loss function to make it cheaper for the model to behave more omoothly and change more slowly(up to a point).
 - Add noise to the input samples, to artificially create new data points between training data samples and force the model to try to fit them too. 
 
 ## Tradeoffs 
