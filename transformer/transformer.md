@@ -1,6 +1,10 @@
 # Transformer
 
-> Recommend Reading material : https://jalammar.github.io/illustrated-transformer/
+> Recommend Reading material :   
+> 1. [illustrated-transformer](https://jalammar.github.io/illustrated-transformer/)
+> 
+> 2. [基于注意力机制，机器之心带你理解与训练神经机器翻译系统](https://mp.weixin.qq.com/s?__biz=MzA3MzI4MjgzMw==&mid=2650742155&idx=1&sn=137825a13a4c31fffb6b2347c0304366&chksm=871ad9f5b06d50e31e2857a08a4a9ae9f57fd0191be580952d80f1518779594670cccc903fbe&scene=21#wechat_redirect)
+
 
 Transformer, the model extends attention to accelerate training, and the biggest advantage is that it can be parallelized.
 
