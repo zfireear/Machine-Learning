@@ -53,4 +53,7 @@
 * [Natual Language Processing](nlp/natural_language_processing.md)
     * [Introduction](nlp/introduction.md)
 * [Anomaly Detection](anomaly_detection/anomaly_detection.md)
+* [GAN](gan/introduction.md)
+    * [Conditional GAN](gan/conditional_gan.md)
+    * [Basic Theory](gan/basic_theory.md)
 
